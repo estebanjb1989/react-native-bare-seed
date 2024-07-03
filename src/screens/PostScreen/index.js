@@ -1,34 +1,26 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { Relay, finalizeEvent } from "nostr-tools";
 import { hexToBytes } from "@noble/hashes/utils";
 import { useSelector } from "react-redux";
-import { Container, Button, Filler, FieldContainer, Input } from "./styles";
+import {
+  Container,
+  Button,
+  Filler,
+  Title,
+  FieldContainer,
+  Input,
+} from "./styles";
 
-const interactWithRelay = async (user) => {
+const postMessage = async ({ user, message, onSuccess, onError }) => {
   let relay = null;
   try {
     relay = await Relay.connect("wss://relay.satlantis.io");
-    console.log(`connected to ${relay.url}`, user);
-
-    relay.subscribe(
-      [
-        {
-          kinds: [1],
-          authors: [user.publicKey],
-        },
-      ],
-      {
-        onevent(event) {
-          console.log("got event:", event);
-        },
-      }
-    );
 
     let eventTemplate = {
       kind: 1, // new post
       created_at: Math.floor(Date.now() / 1000),
       tags: [], // can have mentions and links here
-      content: "Testing relay from React Native",
+      content: message,
     };
 
     // this assigns the pubkey, calculates the event id and signs the event in a single step
@@ -37,10 +29,17 @@ const interactWithRelay = async (user) => {
       hexToBytes(user.secretKeyHex)
     );
     await relay.publish(signedEvent);
+
+    console.log({
+      relayUrl: relay.url,
+      signedEvent,
+    });
+    onSuccess();
   } catch (error) {
     console.log({
       error,
     });
+    onError(error);
   } finally {
     relay?.close();
   }
@@ -48,16 +47,45 @@ const interactWithRelay = async (user) => {
 
 export default function PostScreen() {
   const user = useSelector((state) => state.auth.user);
+  const [message, setMessage] = useState(null);
+  const [loading, setLoading] = useState(null);
+
   const handlePost = useCallback(() => {
-    interactWithRelay(user);
-  }, [user]);
+    if (!message?.trim?.()?.length) {
+      alert("Please enter a message");
+      return;
+    }
+    setLoading(true);
+    postMessage({
+      user,
+      message,
+      onSuccess: () => {
+        setLoading(false);
+        alert("Posted message");
+      },
+      onError: () => {
+        setLoading(false);
+      },
+    });
+  }, [user, message, setLoading]);
 
   return (
     <Container>
       <Filler />
       <FieldContainer>
-        <Input multiline/>
-        <Button onPress={handlePost} title="POST"></Button>
+        <Title>Message</Title>
+        <Input
+          defaultValue=""
+          value={message}
+          multiline
+          onChangeText={setMessage}
+        />
+        <Button
+          disabled={loading}
+          onPress={handlePost}
+          title="POST"
+          accessibilityLabel="Send a message with post button"
+        ></Button>
       </FieldContainer>
       <Filler />
     </Container>

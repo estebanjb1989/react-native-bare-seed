@@ -16,7 +16,7 @@ export const FieldContainer = styled.View`
 
 export const Title = styled.Text`
   font-size: 20px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 `;
 
 export const Input = styled(TextInput)`

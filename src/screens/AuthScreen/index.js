@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { generateSecretKey, getPublicKey } from "nostr-tools";
 import { bytesToHex } from "@noble/hashes/utils"; // already an installed dependency
-import { signUp, signIn } from "../../redux/slices/auth";
+import { signedUp, signedIn } from "../../redux/slices/auth";
 import {
   Container,
   Filler,
@@ -34,7 +34,7 @@ export default AuthScreen = () => {
       secretKeyHex: bytesToHex(sk),
       publicKey,
     };
-    dispatch(signUp(payload));
+    dispatch(signedUp(payload));
   }, [name]);
 
   const handleSignIn = useCallback(() => {
@@ -44,7 +44,7 @@ export default AuthScreen = () => {
       secretKeyHex: secretKey,
       publicKey,
     };
-    dispatch(signIn(payload));
+    dispatch(signedIn(payload));
   }, [secretKey]);
 
   return (

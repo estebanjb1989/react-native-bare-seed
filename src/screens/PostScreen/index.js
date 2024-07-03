@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
-import { Relay, finalizeEvent } from "nostr-tools";
-import { hexToBytes } from "@noble/hashes/utils";
 import { useSelector } from "react-redux";
+import { postMessage } from "../../helpers/nostr";
 import {
   Container,
   Button,
@@ -10,29 +9,6 @@ import {
   FieldContainer,
   Input,
 } from "./styles";
-
-const postMessage = async ({ user, message, onSuccess, onError }) => {
-  let relay = null;
-  try {
-    relay = await Relay.connect("wss://relay.satlantis.io");
-    let eventTemplate = {
-      kind: 1,
-      created_at: Math.floor(Date.now() / 1000),
-      tags: [],
-      content: message,
-    };
-    const signedEvent = finalizeEvent(
-      eventTemplate,
-      hexToBytes(user.secretKeyHex)
-    );
-    await relay.publish(signedEvent);
-    onSuccess(signedEvent);
-  } catch (error) {
-    onError(error);
-  } finally {
-    relay?.close();
-  }
-};
 
 export default function PostScreen() {
   const user = useSelector((state) => state.auth.user);
@@ -54,9 +30,9 @@ export default function PostScreen() {
         alert("Posted message successfully");
       },
       onError: (error) => {
+        setLoading(false);
         console.log(error);
         alert(error);
-        setLoading(false);
       },
     });
   }, [user, message, setLoading]);

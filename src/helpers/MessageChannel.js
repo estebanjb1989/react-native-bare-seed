@@ -1,3 +1,7 @@
+/**
+ * This function is used by nostr tools and needed to redefine 
+ * and overwrite the global class to make it work with RNative.
+ */
 class MessageChannel {
   constructor() {
     this.port1 = new MessagePort();

@@ -20,6 +20,7 @@ export default AuthScreen = () => {
   const [name, setName] = useState(null);
   const [secretKey, setSecretKey] = useState(null);
 
+  // generates the public key and the secret key and saves to the store
   const handleSignUp = useCallback(() => {
     if (!name?.trim()?.length) {
       alert("Please enter your name");
@@ -37,6 +38,7 @@ export default AuthScreen = () => {
     dispatch(signedUp(payload));
   }, [name]);
 
+  // gets the public key from the secret key entered by the user
   const handleSignIn = useCallback(() => {
     const publicKey = getPublicKey(secretKey);
     const payload = {

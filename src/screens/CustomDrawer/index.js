@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import { Alert, Button } from "react-native";
 import Clipboard from "@react-native-clipboard/clipboard";
-import { Container, Filler, PKContainer, PKTitle, PKValue } from "./styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { signedOut } from "../../redux/slices/auth";
+import { signedOut } from "@store/slices/auth";
+import { Container, Filler, PKContainer, PKTitle, PKValue } from "./styles";
 
 const CustomDrawer = () => {
   const dispatch = useDispatch();

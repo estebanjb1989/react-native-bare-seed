@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-import { postMessage } from "../../helpers/nostr";
+import { postMessage } from "@helpers/nostr";
 import {
   Container,
   Button,

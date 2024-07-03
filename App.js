@@ -2,9 +2,9 @@ import "react-native-get-random-values";
 import "text-encoding-polyfill";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/lib/integration/react";
-import MessageChannel from "./src/helpers/MessageChannel";
-import store, { persistor } from "./src/redux/store";
-import Navigation from "./src/navigation";
+import MessageChannel from "@helpers/MessageChannel";
+import store, { persistor } from "@store/store";
+import Navigation from "@navigation";
 
 global.MessageChannel = MessageChannel;
 

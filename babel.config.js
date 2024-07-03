@@ -14,5 +14,18 @@ module.exports = {
     ],
     ["@babel/plugin-transform-private-methods", { loose: true }],
     "react-native-reanimated/plugin",
+    [
+      "module-resolver",
+      {
+        alias: {
+          src: "./src",
+          "@assets": "./src/assets",
+          "@store": "./src/store",
+          "@helpers": "./src/helpers",
+          "@screens": "./src/screens",
+          "@navigation": "./src/navigation",
+        },
+      },
+    ],
   ],
 };

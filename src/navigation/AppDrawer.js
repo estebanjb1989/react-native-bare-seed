@@ -1,5 +1,5 @@
 import React from "react";
-import CustomDrawer from "../screens/CustomDrawer";
+import CustomDrawer from "@screens/CustomDrawer";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import PostStack from "./PostStack";
 import routes from "./routes";

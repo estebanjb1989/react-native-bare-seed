@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import PostScreen from "../screens/PostScreen";
+import PostScreen from "@screens/PostScreen";
 import navigationRoutes from "./routes";
 
 const Stack = createStackNavigator();

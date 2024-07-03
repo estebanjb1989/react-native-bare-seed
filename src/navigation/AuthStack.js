@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import AuthScreen from "../screens/AuthScreen";
+import AuthScreen from "@screens/AuthScreen";
 import navigationRoutes from "./routes";
 
 const Stack = createStackNavigator();

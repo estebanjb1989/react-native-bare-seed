@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { generateSecretKey, getPublicKey } from "nostr-tools";
 import { bytesToHex } from "@noble/hashes/utils"; // already an installed dependency
-import { signedUp, signedIn } from "../../redux/slices/auth";
+import { signedUp, signedIn } from "@store/slices/auth";
 import {
   Container,
   Filler,

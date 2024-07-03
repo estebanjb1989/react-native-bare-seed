@@ -38,6 +38,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/plugin-transform-private-methods": "^7.24.7",
+    "babel-plugin-module-resolver": "^5.0.2",
     "jest": "^29.7.0",
     "metro-react-native-babel-preset": "^0.77.0",
     "redux-devtools-extension": "^2.13.9"

@@ -1,0 +1,21 @@
+{
+  "include": ["./src", "App.*"],
+  "exclude": ["**/*.jsx", "**/__mocks__/*"],
+  "compilerOptions": {
+    "target": "es6",
+    "lib": [ "es2019", "DOM", "ES6" ,"DOM.Iterable", "ScriptHost"],
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@store/*": ["src/store/*"]
+    },
+    "allowJs": true,
+    "outFile": "./built/combined.js",
+    "outDir": "./built",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "NodeNext",
+    "module": "System",
+  }
+}

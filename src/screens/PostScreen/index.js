@@ -15,30 +15,19 @@ const postMessage = async ({ user, message, onSuccess, onError }) => {
   let relay = null;
   try {
     relay = await Relay.connect("wss://relay.satlantis.io");
-
     let eventTemplate = {
-      kind: 1, // new post
+      kind: 1,
       created_at: Math.floor(Date.now() / 1000),
-      tags: [], // can have mentions and links here
+      tags: [],
       content: message,
     };
-
-    // this assigns the pubkey, calculates the event id and signs the event in a single step
     const signedEvent = finalizeEvent(
       eventTemplate,
       hexToBytes(user.secretKeyHex)
     );
     await relay.publish(signedEvent);
-
-    console.log({
-      relayUrl: relay.url,
-      signedEvent,
-    });
-    onSuccess();
+    onSuccess(signedEvent);
   } catch (error) {
-    console.log({
-      error,
-    });
     onError(error);
   } finally {
     relay?.close();
@@ -59,11 +48,14 @@ export default function PostScreen() {
     postMessage({
       user,
       message,
-      onSuccess: () => {
+      onSuccess: (signedEvent) => {
         setLoading(false);
-        alert("Posted message");
+        console.log(signedEvent);
+        alert("Posted message successfully");
       },
-      onError: () => {
+      onError: (error) => {
+        console.log(error);
+        alert(error);
         setLoading(false);
       },
     });
@@ -73,7 +65,7 @@ export default function PostScreen() {
     <Container>
       <Filler />
       <FieldContainer>
-        <Title>What's up, {user.name}?</Title>
+        <Title>{`What's up${user?.name ? `, ${user.name}?` : "?"}`}</Title>
         <Input
           defaultValue=""
           value={message}

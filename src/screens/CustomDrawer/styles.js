@@ -7,6 +7,19 @@ export const Container = styled.View`
   height: 100%;
 `;
 
+export const PKContainer = styled.View`
+    align-items: center;
+`;
+
+export const PKTitle = styled.Text`
+  font-size: 13px;
+  margin-bottom: 4px;
+`;
+
+export const PKValue = styled.Text`
+  font-size: 16px;
+`;
+
 export const Filler = styled.View`
   margin-top: 12px;
 `;

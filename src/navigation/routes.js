@@ -1,4 +1,10 @@
 export default navigationRoutes = {
-  auth: "navigator/auth",
-  post: "navigator/app/post",
+  authStack: {
+    key: "auth-stack",
+    auth: "auth-stack/auth",
+  },
+  postStack: {
+    key: "post-stack",
+    post: "post-stack/post",
+  },
 };

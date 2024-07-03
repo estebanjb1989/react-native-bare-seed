@@ -7,7 +7,13 @@ const Stack = createStackNavigator();
 function AuthStack() {
   return (
     <Stack.Navigator initialRouteName={navigationRoutes.auth}>
-      <Stack.Screen name={navigationRoutes.auth} component={AuthScreen} />
+      <Stack.Screen
+        name={navigationRoutes.authStack.auth}
+        component={AuthScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }

@@ -3,6 +3,7 @@ import "text-encoding-polyfill";
 import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { generateSecretKey, getPublicKey } from "nostr-tools";
+import { bytesToHex, hexToBytes } from "@noble/hashes/utils"; // already an installed dependency
 import { signUp } from "../../redux/slices/auth";
 import {
   Container,
@@ -22,20 +23,15 @@ export default AuthScreen = () => {
       return;
     }
 
-    console.log({
-      signUp,
-    });
-
     const secretKey = generateSecretKey();
     const publicKey = getPublicKey(secretKey);
 
-    dispatch(
-      signUp({
-        name,
-        secretKey,
-        publicKey,
-      })
-    );
+    const payload = {
+      name,
+      secretKeyHex: bytesToHex(secretKey),
+      publicKey,
+    };
+    dispatch(signUp(payload));
   }, [name]);
   const handleSignIn = useCallback(() => {}, []);
 

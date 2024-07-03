@@ -9,7 +9,7 @@ export const Container = styled.View`
 
 export const Filler = styled.View``;
 
-export const FieldContainer = styled.View`
+export const Group = styled.View`
   align-items: flex-start;
   justify-content: center;
 `;
@@ -31,6 +31,5 @@ export const Button = styled(NativeButton)`
   width: 240px;
   height: 48px;
   padding-horizontal: 8px;
-  background-color: white;
   border-radius: 4px;
 `;

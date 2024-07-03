@@ -1,5 +1,6 @@
 import { Relay, finalizeEvent } from "nostr-tools";
 import { hexToBytes } from "@noble/hashes/utils";
+import { RELAY_URL } from "@env";
 
 /**
  * Function to connect to the relay and send event Kind 1
@@ -8,7 +9,7 @@ import { hexToBytes } from "@noble/hashes/utils";
 export const postMessage = async ({ user, message, onSuccess, onError }) => {
   let relay = null;
   try {
-    relay = await Relay.connect("wss://relay.satlantis.io");
+    relay = await Relay.connect(RELAY_URL);
     let eventTemplate = {
       kind: 1,
       created_at: Math.floor(Date.now() / 1000),

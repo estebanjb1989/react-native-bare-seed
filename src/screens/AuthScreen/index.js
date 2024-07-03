@@ -5,14 +5,7 @@ import { useDispatch } from "react-redux";
 import { generateSecretKey, getPublicKey } from "nostr-tools";
 import { bytesToHex } from "@noble/hashes/utils"; // already an installed dependency
 import { signedUp, signedIn } from "@store/slices/auth";
-import {
-  Container,
-  Filler,
-  FieldContainer,
-  Title,
-  Input,
-  Button,
-} from "./styles";
+import { Container, Filler, Group, Title, Input, Button } from "./styles";
 
 export default AuthScreen = () => {
   const dispatch = useDispatch();
@@ -52,13 +45,13 @@ export default AuthScreen = () => {
   return (
     <Container>
       <Filler />
-      <FieldContainer>
+      <Group>
         <Title>New user?</Title>
         <Input onChangeText={setName} placeholder="What's your name?" />
         <Button title="Sign up" onPress={handleSignUp} />
-      </FieldContainer>
+      </Group>
       <Filler />
-      <FieldContainer>
+      <Group>
         <Title>Already have an account?</Title>
         <Input
           onChangeText={setSecretKey}
@@ -66,7 +59,7 @@ export default AuthScreen = () => {
           placeholder="Paste secret hex key here"
         />
         <Button title="Sign in" onPress={handleSignIn} />
-      </FieldContainer>
+      </Group>
       <Filler />
     </Container>
   );

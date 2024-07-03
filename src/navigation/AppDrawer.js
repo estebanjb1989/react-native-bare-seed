@@ -9,7 +9,13 @@ const Drawer = createDrawerNavigator();
 export default function DrawerNavigator() {
   return (
     <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
-      <Drawer.Screen name={routes.postStack.key} component={PostStack} />
+      <Drawer.Screen
+        options={{
+          title: null,
+        }}
+        name={routes.postStack.key}
+        component={PostStack}
+      />
     </Drawer.Navigator>
   );
 }

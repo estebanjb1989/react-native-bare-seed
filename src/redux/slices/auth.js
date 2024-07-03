@@ -15,13 +15,9 @@ const authSlice = createSlice({
       state.user = { name, secretKeyHex, publicKey };
     },
     signIn(state, action) {
-      // Look for the specific nested object to update.
-      // In this case, `action.payload` is the default field in the action,
-      // and can hold the `id` value - no need for `action.id` separately
-      const { secretKey } = action.payload;
-      const accessAllowed = state.user?.secretKey === secretKey;
-
-      state.user.accessAllowed = accessAllowed;
+      const { name, secretKeyHex, publicKey } = action.payload;
+      // "Mutating" update syntax thanks to Immer, and no `return` needed
+      state.user = { name, secretKeyHex, publicKey };
     },
     signOut(state) {
       state.user = null;

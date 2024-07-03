@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
 import { Relay, finalizeEvent } from "nostr-tools";
-import { hexToBytes } from "@noble/hashes/utils"; // already an installed dependency
+import { hexToBytes } from "@noble/hashes/utils";
 import { useSelector } from "react-redux";
+import { Container, Button, Filler, FieldContainer, Input } from "./styles";
 
 const interactWithRelay = async (user) => {
   let relay = null;
@@ -51,19 +51,15 @@ export default function PostScreen() {
   const handlePost = useCallback(() => {
     interactWithRelay(user);
   }, [user]);
+
   return (
-    <View style={styles.container}>
-      <Text>SATLANTIS</Text>
-      <Button onPress={handlePost} title="POST"></Button>
-    </View>
+    <Container>
+      <Filler />
+      <FieldContainer>
+        <Input multiline/>
+        <Button onPress={handlePost} title="POST"></Button>
+      </FieldContainer>
+      <Filler />
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

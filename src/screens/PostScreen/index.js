@@ -73,7 +73,7 @@ export default function PostScreen() {
     <Container>
       <Filler />
       <FieldContainer>
-        <Title>Message</Title>
+        <Title>What's up, {user.name}?</Title>
         <Input
           defaultValue=""
           value={message}

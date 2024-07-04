@@ -1,3 +1,4 @@
+import React from "react";
 import "react-native-get-random-values";
 import "text-encoding-polyfill";
 import { Provider } from "react-redux";
@@ -6,6 +7,7 @@ import MessageChannel from "@helpers/MessageChannel";
 import store, { persistor } from "@store/store";
 import Navigation from "@navigation";
 
+// eslint-disable-next-line no-undef
 global.MessageChannel = MessageChannel;
 
 export default function App() {

@@ -9,8 +9,11 @@ It should be primarily responsible for the following areas:
 - React Navigation basic implementation
 
 ## Install instructions
+- Make sure you have the react native development environment configured
+
 1. Clone the repository
 2. In the root folder run `yarn && cd ios && pod install`
 3. Create your `.env` file with `cp .env.example .env`
 4. Make sure you set the correct `RELAY_URL` for development
-5. 
+5. Open the simulator and xcode, make sure you point to the correct simulator, checking the iOS version and build the app
+6. Run the app with `yarn start`

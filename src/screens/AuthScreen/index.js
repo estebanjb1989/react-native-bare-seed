@@ -1,13 +1,21 @@
 import "react-native-get-random-values";
 import "text-encoding-polyfill";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { generateSecretKey, getPublicKey } from "nostr-tools";
 import { bytesToHex } from "@noble/hashes/utils"; // already an installed dependency
 import { signedUp, signedIn } from "@store/slices/auth";
-import { Container, Filler, Group, Title, Input, Button } from "./styles";
+import {
+  Container,
+  Filler,
+  Group,
+  Title,
+  Subtitle,
+  Input,
+  Button,
+} from "./styles";
 
-export default AuthScreen = () => {
+const AuthScreen = () => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState(null);
@@ -15,44 +23,55 @@ export default AuthScreen = () => {
 
   // generates the public key and the secret key and saves to the store
   const handleSignUp = useCallback(() => {
-    if (!name?.trim()?.length) {
-      alert("Please enter your name");
-      return;
+    try {
+      if (!name?.trim()?.length) {
+        throw new Error("Please enter your name to sign up");
+      }
+
+      const sk = generateSecretKey();
+      const publicKey = getPublicKey(sk);
+
+      const payload = {
+        name,
+        secretKeyHex: bytesToHex(sk),
+        publicKey,
+      };
+      dispatch(signedUp(payload));
+    } catch (error) {
+      alert(error);
     }
-
-    const sk = generateSecretKey();
-    const publicKey = getPublicKey(sk);
-
-    const payload = {
-      name,
-      secretKeyHex: bytesToHex(sk),
-      publicKey,
-    };
-    dispatch(signedUp(payload));
   }, [name]);
 
   // gets the public key from the secret key entered by the user
   const handleSignIn = useCallback(() => {
-    const publicKey = getPublicKey(secretKey);
-    const payload = {
-      name: null,
-      secretKeyHex: secretKey,
-      publicKey,
-    };
-    dispatch(signedIn(payload));
+    try {
+      if (!secretKey?.trim()?.length) {
+        throw new Error("Please enter the secret key to sign in");
+      }
+      const publicKey = getPublicKey(secretKey);
+      const payload = {
+        name: null,
+        secretKeyHex: secretKey,
+        publicKey,
+      };
+      dispatch(signedIn(payload));
+    } catch (error) {
+      alert(error);
+    }
   }, [secretKey]);
 
   return (
     <Container>
       <Filler />
+      <Title>Nostr client app</Title>
       <Group>
-        <Title>New user?</Title>
+        <Subtitle>New user?</Subtitle>
         <Input onChangeText={setName} placeholder="What's your name?" />
         <Button title="Sign up" onPress={handleSignUp} />
       </Group>
       <Filler />
       <Group>
-        <Title>Already have an account?</Title>
+        <Subtitle>Already have an account?</Subtitle>
         <Input
           onChangeText={setSecretKey}
           secureTextEntry
@@ -64,3 +83,5 @@ export default AuthScreen = () => {
     </Container>
   );
 };
+
+export default AuthScreen;

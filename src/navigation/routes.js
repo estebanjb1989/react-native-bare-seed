@@ -1,4 +1,4 @@
-export default navigationRoutes = {
+const navigationRoutes = {
   authStack: {
     key: "auth-stack",
     auth: "auth-stack/auth",
@@ -8,3 +8,5 @@ export default navigationRoutes = {
     post: "post-stack/post",
   },
 };
+
+export default navigationRoutes;

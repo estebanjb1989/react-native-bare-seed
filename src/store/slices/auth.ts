@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IAuthUser } from "src/interfaces";
 
-const initialState = {
+interface IState {
+  user: IAuthUser | null;
+}
+
+const initialState: IState = {
   user: null,
 };
 

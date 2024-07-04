@@ -11,7 +11,6 @@ function PostStack() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName={navigationRoutes.auth}
     >
       <Stack.Screen
         name={navigationRoutes.postStack.post}

@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-import { postMessage } from "@helpers/nostr";
+import { postMessage } from "src/helpers/nostr";
+import { IStore } from "src/interfaces/store"
+import { INostrEvent } from "src/interfaces/nostr";
 import {
   Container,
   Button,
@@ -11,9 +13,9 @@ import {
 } from "./styles";
 
 export default function PostScreen() {
-  const user = useSelector((state) => state.auth.user);
-  const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const user = useSelector((state : IStore) => state.auth.user);
+  const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handlePost = useCallback(() => {
     if (!message?.trim?.()?.length) {
@@ -24,12 +26,12 @@ export default function PostScreen() {
     postMessage({
       user,
       message,
-      onSuccess: (signedEvent) => {
+      onSuccess: (signedEvent: INostrEvent) => {
         setLoading(false);
         console.log(signedEvent);
         alert("Posted message successfully");
       },
-      onError: (error) => {
+      onError: (error: string) => {
         setLoading(false);
         console.log(error);
         alert(error);

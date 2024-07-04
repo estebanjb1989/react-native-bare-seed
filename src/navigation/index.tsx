@@ -1,12 +1,12 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-
+import { useSelector } from "react-redux";
 import AppDrawer from "./AppDrawer";
 import AuthStack from "./AuthStack";
-import { useSelector } from "react-redux";
+import { IStore } from "src/interfaces";
 
 function Navigation() {
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state: IStore) => state.auth.user);
   return (
     <NavigationContainer>
       {user ? <AppDrawer /> : <AuthStack />}

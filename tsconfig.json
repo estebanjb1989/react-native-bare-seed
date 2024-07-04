@@ -7,7 +7,8 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@store/*": ["src/store/*"]
+      "@store/*": ["src/store/*"],
+      "@screens/*": ["src/screens/*"],
     },
     "allowJs": true,
     "outFile": "./built/combined.js",

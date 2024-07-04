@@ -1,10 +1,11 @@
+import React from "react";
 import "react-native-get-random-values";
 import "text-encoding-polyfill";
-import React, { useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { generateSecretKey, getPublicKey } from "nostr-tools";
-import { bytesToHex } from "@noble/hashes/utils"; // already an installed dependency
-import { signedUp, signedIn } from "@store/slices/auth";
+import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
+import { signedUp, signedIn } from "src/store/slices/auth";
 import {
   Container,
   Filler,
@@ -18,8 +19,8 @@ import {
 const AuthScreen = () => {
   const dispatch = useDispatch();
 
-  const [name, setName] = useState(null);
-  const [secretKey, setSecretKey] = useState(null);
+  const [name, setName] = useState<string>("");
+  const [secretKey, setSecretKey] = useState<string>("");
 
   // generates the public key and the secret key and saves to the store
   const handleSignUp = useCallback(() => {
@@ -48,7 +49,8 @@ const AuthScreen = () => {
       if (!secretKey?.trim()?.length) {
         throw new Error("Please enter the secret key to sign in");
       }
-      const publicKey = getPublicKey(secretKey);
+      const sk = hexToBytes(secretKey);
+      const publicKey = getPublicKey(sk);
       const payload = {
         name: null,
         secretKeyHex: secretKey,

@@ -6,12 +6,12 @@ import routes from "./routes";
 
 const Drawer = createDrawerNavigator();
 
-export default function DrawerNavigator() {
+export default function DrawerNavigator(): React.ReactElement {
   return (
-    <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} />}>
+    <Drawer.Navigator drawerContent={() => <CustomDrawer />}>
       <Drawer.Screen
         options={{
-          title: null,
+          title: "",
         }}
         name={routes.postStack.key}
         component={PostStack}

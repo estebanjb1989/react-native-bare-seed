@@ -3,12 +3,13 @@ import { Alert, Button } from "react-native";
 import Clipboard from "@react-native-clipboard/clipboard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
-import { signedOut } from "@store/slices/auth";
+import { signedOut } from "src/store/slices/auth";
+import { IStore } from "src/interfaces/store";
 import { Container, Filler, PKContainer, PKTitle, PKValue } from "./styles";
 
 const CustomDrawer = () => {
   const dispatch = useDispatch();
-  const publicKey = useSelector((state) => state.auth.user?.publicKey);
+  const publicKey = useSelector((state: IStore) => state.auth.user?.publicKey);
   const handleSignOut = useCallback(() => {
     Alert.alert(
       "Alert",

@@ -3,17 +3,15 @@ import { useSelector } from "react-redux";
 import { postMessage } from "src/helpers/nostr";
 import { IStore } from "src/interfaces/store"
 import { INostrEvent } from "src/interfaces/nostr";
+import { ButtonContainer, Filler, Group, Title } from "src/styles";
 import {
   Container,
   Button,
-  Filler,
-  Title,
-  FieldContainer,
   Input,
 } from "./styles";
 
 export default function PostScreen() {
-  const user = useSelector((state : IStore) => state.auth.user);
+  const user = useSelector((state: IStore) => state.auth.user);
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -42,7 +40,7 @@ export default function PostScreen() {
   return (
     <Container>
       <Filler />
-      <FieldContainer>
+      <Group>
         <Title>{`What's up${user?.name ? `, ${user.name}?` : "?"}`}</Title>
         <Input
           defaultValue=""
@@ -50,13 +48,15 @@ export default function PostScreen() {
           multiline
           onChangeText={setMessage}
         />
-        <Button
-          disabled={loading}
-          onPress={handlePost}
-          title="POST"
-          accessibilityLabel="Send a message with post button"
-        ></Button>
-      </FieldContainer>
+        <ButtonContainer>
+          <Button
+            disabled={loading}
+            onPress={handlePost}
+            title="POST"
+            accessibilityLabel="Send a message with post button"
+          />
+        </ButtonContainer>
+      </Group>
       <Filler />
     </Container>
   );

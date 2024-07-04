@@ -6,11 +6,9 @@ import { useDispatch } from "react-redux";
 import { generateSecretKey, getPublicKey } from "nostr-tools";
 import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
 import { signedUp, signedIn } from "src/store/slices/auth";
+import { ButtonContainer, Filler, Group, Title } from "src/styles";
 import {
-  Container,
-  Filler,
-  Group,
-  Title,
+  Container,  
   Subtitle,
   Input,
   Button,
@@ -62,24 +60,36 @@ const AuthScreen = () => {
     }
   }, [secretKey]);
 
+  const handleNameChange = useCallback((text: string) => {
+    setName(text)
+  }, [setName])
+
+  const handleSecretKeyChange = useCallback((text: string) => {
+    setSecretKey(text)
+  }, [setName])
+
   return (
     <Container>
       <Filler />
       <Title>Nostr client app</Title>
       <Group>
         <Subtitle>New user?</Subtitle>
-        <Input onChangeText={setName} placeholder="What's your name?" />
-        <Button title="Sign up" onPress={handleSignUp} />
+        <Input onChangeText={handleNameChange} placeholder="What's your name?" />
+        <ButtonContainer>
+          <Button title="Sign up" onPress={handleSignUp} />
+        </ButtonContainer>
       </Group>
       <Filler />
       <Group>
         <Subtitle>Already have an account?</Subtitle>
         <Input
-          onChangeText={setSecretKey}
+          onChangeText={handleSecretKeyChange}
           secureTextEntry
           placeholder="Paste secret hex key here"
         />
-        <Button title="Sign in" onPress={handleSignIn} />
+        <ButtonContainer>
+          <Button title="Sign in" onPress={handleSignIn} />
+        </ButtonContainer>
       </Group>
       <Filler />
     </Container>

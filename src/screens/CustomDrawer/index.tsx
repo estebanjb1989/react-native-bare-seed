@@ -5,7 +5,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch, useSelector } from "react-redux";
 import { signedOut } from "src/store/slices/auth";
 import { IStore } from "src/interfaces/store";
-import { Container, Filler, PKContainer, PKTitle, PKValue } from "./styles";
+import { Filler, Title } from "src/styles";
+import { Container, PKContainer, PKValue } from "./styles";
 
 const CustomDrawer = () => {
   const dispatch = useDispatch();
@@ -31,16 +32,16 @@ const CustomDrawer = () => {
 
   const handleCopyToClipboard = useCallback(() => {
     Clipboard.setString(publicKey);
+    alert("Public key copied to clipboard")
   }, [publicKey]);
 
   return (
     <SafeAreaView>
       <Container>
         <Filler />
-        <PKContainer>
-          <PKTitle>Public Key</PKTitle>
-          <PKValue>{publicKey}</PKValue>
-          <Button title="COPY" onPress={handleCopyToClipboard} />
+        <PKContainer onPress={handleCopyToClipboard}>
+          <Title>Public Key</Title>
+          <PKValue>{publicKey}</PKValue>          
         </PKContainer>
         <Button title="SIGN OUT" onPress={handleSignOut} />
       </Container>

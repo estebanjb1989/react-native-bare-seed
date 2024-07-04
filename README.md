@@ -25,3 +25,5 @@ It should be primarily responsible for the following areas:
 ```
 org.gradle.java.home=/Library/Java/JavaVirtualMachines/jdk-17.0.10.jdk/Contents/Home
 ```
+
+start "" "C:\Program Files\Android\Android Studio\bin\studio64.exe" "C:\Users\HP\Downloads\satlantis-mobile\android"

@@ -7,18 +7,6 @@ export const Container = styled.View`
   justify-content: space-between;
 `;
 
-export const Filler = styled.View``;
-
-export const Group = styled.View`
-  align-items: flex-start;
-  justify-content: center;
-`;
-
-export const Title = styled.Text`
-  font-size: 32px;
-  margin-bottom: 12px;
-`;
-
 export const Subtitle = styled.Text`
   font-size: 20px;
   margin-bottom: 12px;
@@ -32,8 +20,7 @@ export const Input = styled(TextInput)`
   border-radius: 4px;
 `;
 
-export const Button = styled(NativeButton)`
-  width: 240px;
+export const Button = styled(NativeButton)`   
   height: 48px;
   padding-horizontal: 8px;
   border-radius: 4px;

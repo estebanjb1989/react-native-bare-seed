@@ -7,18 +7,6 @@ export const Container = styled.View`
   justify-content: space-between;
 `;
 
-export const Filler = styled.View``;
-
-export const FieldContainer = styled.View`
-  align-items: flex-start;
-  justify-content: center;
-`;
-
-export const Title = styled.Text`
-  font-size: 20px;
-  margin-bottom: 8px;
-`;
-
 export const Input = styled(TextInput)`
   width: 240px;
   height: 120px;

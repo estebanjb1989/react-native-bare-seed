@@ -24,6 +24,7 @@ module.exports = {
           "@helpers": "./src/helpers",
           "@screens": "./src/screens",
           "@navigation": "./src/navigation",
+          "@styles": "./src/styles",
         },
       },
     ],

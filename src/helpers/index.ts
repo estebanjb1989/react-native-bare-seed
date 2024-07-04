@@ -1,2 +1,2 @@
 export * from "./MessageChannel";
-export * from "./nostr";
+export * from "./nostr/index";

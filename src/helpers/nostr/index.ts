@@ -35,9 +35,9 @@ export const postMessage = async ({
       hexToBytes(user.secretKeyHex)
     );
     await relay.publish(signedEvent);
-    onSuccess(signedEvent as INostrEvent);
+    onSuccess?.(signedEvent as INostrEvent);
   } catch (error) {
-    onError(error?.toString() ?? "Unhandled exception");
+    onError?.(error?.toString() ?? "Unhandled exception");
   } finally {
     relay?.close();
   }

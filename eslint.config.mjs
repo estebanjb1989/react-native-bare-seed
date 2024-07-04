@@ -5,6 +5,7 @@ import { fixupConfigRules } from "@eslint/compat";
 
 export default [
   { files: ["**/*.{js,mjs,cjs,jsx}"] },
+  { ignores: ["**/*.test.js"] },
   { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,

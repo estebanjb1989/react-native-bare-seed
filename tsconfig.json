@@ -6,10 +6,7 @@
     "lib": [ "es2019", "DOM", "ES6" ,"DOM.Iterable", "ScriptHost"],
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "paths": {
-      "@store/*": ["src/store/*"],
-      "@screens/*": ["src/screens/*"],
-    },
+    "paths": {},
     "allowJs": true,
     "outFile": "./built/combined.js",
     "outDir": "./built",

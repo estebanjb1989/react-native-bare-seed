@@ -8,12 +8,11 @@
     "baseUrl": ".",
     "paths": {},
     "allowJs": true,
-    "outFile": "./built/combined.js",
     "outDir": "./built",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "NodeNext",
-    "module": "System",
+    "module": "NodeNext",
   }
 }

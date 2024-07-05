@@ -3,11 +3,12 @@ Frontend implementation of `Satlantis` mobile application.
 It should be primarily responsible for the following areas:
 
 - Screens for basic auth & post creation
-- State management with Redux toolkit
-- Local persistence for auth user
-- React Navigation basic implementation
-- Build kind 1 event payload and send to Satlantis relay
-- Use Typescript, eslint and jest
+- Redux toolkit latest version
+- State persistence with redux-persist
+- React-navigation with simple drawer and stacks
+- Nostr tools integration and publishing events to relays
+- Typescript, linting and unit testing
+- Build for iOS & Android
 
 ## Install instructions
 - Make sure you have the react native development environment configured; Should have the latest versions of nvm, node, npm, yarn, cocoapods, MacOS and xcode.
@@ -33,3 +34,16 @@ to build the app in Android studio and are around the node installation make sur
 ```
 start "" "C:\Program Files\Android\Android Studio\bin\studio64.exe" "C:\Users\HP\Downloads\satlantis-mobile\android"
 ```
+
+## Test plan 
+
+1. First screen should be auth screen, presenting two inputs, one for sign up with name and other for sign in with secret key.
+2. Sign up with your name, should be redirected to the first screen of the app, currently with a post input to submit content to Satlantis relay.
+3. Note you see the input for creating a post, enter any text and press `POST`.
+4. Check post button is disabled while fetching and the alert of successful publication is displayed. 
+- If we have an exception publishing the post, the error will be catched in the application code and thrown to upper layer, currently just showing an alert with the error detail.
+5. Check creating a few more posts without issues.
+6. Note at the top left corner the drawer toggle button, press to open the drawer.
+7. Check the public key button, which can be pressed to copy the public key to clipboard.
+8. Force reload the app without signing out, app should have persisted the auth user, without showing the auth screen again on refresh.
+10. Sign out of the app.

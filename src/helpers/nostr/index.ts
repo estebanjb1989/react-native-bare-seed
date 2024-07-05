@@ -1,4 +1,4 @@
-import { Relay, finalizeEvent, EventTemplate } from "nostr-tools";
+import { Relay, finalizeEvent, EventTemplate, getPublicKey } from "nostr-tools";
 import { hexToBytes } from "@noble/hashes/utils";
 import { RELAY_URL } from "@env";
 import { INostrEvent } from "src/interfaces"
@@ -40,10 +40,14 @@ export const postMessage = async ({
 }: IPostMessagePayload): Promise<INostrEvent> => {
   let relay = null;
   try {
+    const secretKey = hexToBytes(user.secretKeyHex);
+    // validate keys
+    getPublicKey(secretKey);
+
     relay = await Relay.connect(RELAY_URL);
     const signedEvent = finalizeEvent(
       createEventTemplate(EVENT_KIND.POST_MESSAGE, message),
-      hexToBytes(user.secretKeyHex)
+      secretKey
     );
     await relay.publish(signedEvent);
     return signedEvent as INostrEvent;

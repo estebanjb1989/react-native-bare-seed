@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { postMessage } from "src/helpers/nostr";
 import { IStore } from "src/interfaces/store"
-import { INostrEvent } from "src/interfaces/nostr";
 import { ButtonContainer, Filler, Group, Title } from "src/styles";
 import {
   Container,
@@ -22,16 +21,14 @@ export default function PostScreen() {
     }
     try {
       setLoading(true);
-      const signedEvent: INostrEvent = await postMessage({
+      await postMessage({
         user,
         message,
       }) 
       setLoading(false);
-      console.log(signedEvent);
       alert("Message has been posted successfully");
     } catch(error) {
       setLoading(false);
-      console.log(error);
       alert(error);
     }
   }, [user, message, setLoading]);

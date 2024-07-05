@@ -21,6 +21,7 @@ jest.mock("nostr-tools", () => ({
     })),
   },
   finalizeEvent: jest.fn(),
+  getPublicKey: jest.fn(),
 }));
 
 jest.mock("@noble/hashes/utils", () => ({

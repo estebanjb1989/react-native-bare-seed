@@ -43,7 +43,7 @@ const CustomDrawer = () => {
           <Title>Public Key</Title>
           <PKValue>{publicKey}</PKValue>          
         </PKContainer>
-        <Button title="SIGN OUT" onPress={handleSignOut} />
+        <Button title="Sign out" onPress={handleSignOut} />
       </Container>
     </SafeAreaView>
   );

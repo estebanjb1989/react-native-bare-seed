@@ -6,7 +6,8 @@ import { useDispatch } from "react-redux";
 import { generateSecretKey, getPublicKey } from "nostr-tools";
 import { bytesToHex, hexToBytes } from "@noble/hashes/utils";
 import { signedUp, signedIn } from "src/store/slices/auth";
-import { ButtonContainer, Filler, Group, Title } from "src/styles";
+import { ButtonContainer, Filler, Group, AppTitle } from "src/styles";
+import { APP_NAME } from "@env";
 import {
   Container,  
   Subtitle,
@@ -71,8 +72,8 @@ const AuthScreen = () => {
   return (
     <Container>
       <Filler />
-      <Title>Nostr client app</Title>
-      <Group>
+      <AppTitle>{APP_NAME}</AppTitle>
+      <Group contained>
         <Subtitle>New user?</Subtitle>
         <Input onChangeText={handleNameChange} placeholder="What's your name?" />
         <ButtonContainer>
@@ -80,7 +81,7 @@ const AuthScreen = () => {
         </ButtonContainer>
       </Group>
       <Filler />
-      <Group>
+      <Group contained>
         <Subtitle>Already have an account?</Subtitle>
         <Input
           onChangeText={handleSecretKeyChange}

@@ -36,7 +36,7 @@ export default function PostScreen() {
   return (
     <Container>
       <Filler />
-      <Group>
+      <Group contained>
         <Title>{`What's up${user?.name ? `, ${user.name}?` : "?"}`}</Title>
         <Input
           defaultValue=""

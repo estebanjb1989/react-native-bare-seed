@@ -1,16 +1,15 @@
 import React, { useCallback } from "react";
 import { Alert, Button } from "react-native";
-import Clipboard from "@react-native-clipboard/clipboard";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signedOut } from "src/store/slices/auth";
-import { IStore } from "src/interfaces/store";
-import { Filler, Title } from "src/styles";
-import { Container, PKContainer, PKValue } from "./styles";
+import { Group, Filler, AppTitle } from "src/styles";
+import { Container } from "./styles";
+import { PublicKeyBadge } from "src/components";
+import { APP_NAME } from "@env";
 
 const CustomDrawer = () => {
   const dispatch = useDispatch();
-  const publicKey = useSelector((state: IStore) => state.auth.user?.publicKey);
   const handleSignOut = useCallback(() => {
     Alert.alert(
       "Alert",
@@ -18,7 +17,7 @@ const CustomDrawer = () => {
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
+          onPress: () => {},
           style: "cancel",
         },
         {
@@ -30,20 +29,16 @@ const CustomDrawer = () => {
     );
   }, []);
 
-  const handleCopyToClipboard = useCallback(() => {
-    Clipboard.setString(publicKey);
-    alert("Public key copied to clipboard")
-  }, [publicKey]);
-
   return (
     <SafeAreaView>
       <Container>
+        <AppTitle>{APP_NAME}</AppTitle>
         <Filler />
-        <PKContainer onPress={handleCopyToClipboard}>
-          <Title>Public Key</Title>
-          <PKValue>{publicKey}</PKValue>          
-        </PKContainer>
-        <Button title="Sign out" onPress={handleSignOut} />
+        <Group centered>
+          <PublicKeyBadge />
+          <Filler height={32} />
+          <Button title="Sign out" onPress={handleSignOut} />
+        </Group>
       </Container>
     </SafeAreaView>
   );

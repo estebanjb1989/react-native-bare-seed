@@ -14,6 +14,6 @@ export const Group = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 20px;
+  font-size: 22px;
   margin-bottom: 8px;
 `;

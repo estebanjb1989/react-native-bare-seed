@@ -1,4 +1,4 @@
-import { Relay, finalizeEvent } from "nostr-tools";
+import { Relay, finalizeEvent, EventTemplate } from "nostr-tools";
 import { hexToBytes } from "@noble/hashes/utils";
 import { RELAY_URL } from "@env";
 import { INostrEvent } from "src/interfaces"
@@ -7,8 +7,27 @@ import { IAuthUser } from "src/interfaces";
 interface IPostMessagePayload {
   user: IAuthUser;
   message: string;
-  onSuccess: (signedEvent: INostrEvent) => void;
-  onError: (errorMessage: string) => void;
+}
+
+// we have a several event kinds, for this implementation we are using
+// kind 1 event to post a new message to the relay
+const EVENT_KIND = {
+  POST_MESSAGE: 1,
+}
+
+const createEventTemplate = (kind: number, content: string): EventTemplate => {
+ return {
+    kind,
+    created_at: Math.floor(Date.now() / 1000),
+    tags: [],
+    content,
+  } 
+}
+
+interface INostrError {}
+
+const handleError = (error: unknown | string) => {
+  throw new Error(error?.toString() ?? "Unhandled exception");
 }
 
 /**
@@ -18,26 +37,18 @@ interface IPostMessagePayload {
 export const postMessage = async ({ 
   user, 
   message, 
-  onSuccess,
-  onError 
-}: IPostMessagePayload) => {
+}: IPostMessagePayload): Promise<INostrEvent> => {
   let relay = null;
   try {
     relay = await Relay.connect(RELAY_URL);
-    let eventTemplate = {
-      kind: 1,
-      created_at: Math.floor(Date.now() / 1000),
-      tags: [],
-      content: message,
-    };
     const signedEvent = finalizeEvent(
-      eventTemplate,
+      createEventTemplate(EVENT_KIND.POST_MESSAGE, message),
       hexToBytes(user.secretKeyHex)
     );
     await relay.publish(signedEvent);
-    onSuccess?.(signedEvent as INostrEvent);
-  } catch (error) {
-    onError?.(error?.toString() ?? "Unhandled exception");
+    return signedEvent as INostrEvent;
+  } catch (error: unknown) {
+    return handleError(error)
   } finally {
     relay?.close();
   }

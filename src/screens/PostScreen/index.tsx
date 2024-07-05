@@ -15,26 +15,25 @@ export default function PostScreen() {
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handlePost = useCallback(() => {
+  const handlePost = useCallback(async () => {
     if (!message?.trim?.()?.length) {
       alert("Please enter a message");
       return;
     }
-    setLoading(true);
-    postMessage({
-      user,
-      message,
-      onSuccess: (signedEvent: INostrEvent) => {
-        setLoading(false);
-        console.log(signedEvent);
-        alert("Posted message successfully");
-      },
-      onError: (error: string) => {
-        setLoading(false);
-        console.log(error);
-        alert(error);
-      },
-    });
+    try {
+      setLoading(true);
+      const signedEvent: INostrEvent = await postMessage({
+        user,
+        message,
+      }) 
+      setLoading(false);
+      console.log(signedEvent);
+      alert("Message has been posted successfully");
+    } catch(error) {
+      setLoading(false);
+      console.log(error);
+      alert(error);
+    }
   }, [user, message, setLoading]);
 
   return (
